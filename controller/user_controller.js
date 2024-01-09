@@ -2,10 +2,33 @@
 const User = require('../model/user');
 
 
+//showing login page  
+module.exports.loginPage = function(req,res){
+    
+     return res.render('login',{
+         title : 'Login'
+     })
+    
+
+}
+
+//showing sign-up page for user
+
+module.exports.signUpPage = function(req,res){
+    
+     return res.render('sign-up',{
+         title:'New User'
+     })
+
+}
+
+
 //user to creating controller
 module.exports.createUser = async function (req,res){
-    
+
     try {
+        console.log(req.body.password);
+        console.log(req.body.conform_password);
         if (req.body.password !== req.body.conform_password) {
             console.log("Password and conform password do not match");
             return res.status(400).json({
@@ -38,7 +61,6 @@ module.exports.createUser = async function (req,res){
 }
 
 //create user session
-
 module.exports.createSession = function(req,res){
       
     console.log("user signed successfully");
@@ -48,9 +70,6 @@ module.exports.createSession = function(req,res){
         message: "User login  successfully",
         data: user
     });
-
-
-      
 }
 
 

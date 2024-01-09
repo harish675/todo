@@ -1,7 +1,8 @@
 
 module.exports.homePage = function(req,res){
-    
-    
-    res.send('<h1>They Routes controller are fine </h1>');
+     
+    return res.render('home',{
+         title:'Home'
+    })
 
 }
