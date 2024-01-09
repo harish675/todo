@@ -4,10 +4,8 @@ const app = express();
 const port = 8000;
 
 
-app.get('/', function(req,res){
-      
-     res.send('<h1>"Well come to homepage"<h1>');
-})
+
+app.use('/',require('./routes'));
 
 app.listen(port , function(err){
     
