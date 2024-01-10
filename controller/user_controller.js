@@ -36,8 +36,6 @@ module.exports.signUpPage = function(req,res){
 module.exports.createUser = async function (req,res){
 
     try {
-        console.log(req.body.password);
-        console.log(req.body.conform_password);
         if (req.body.password !== req.body.conform_password) {
             console.log("Password and conform password do not match");
             return res.status(400).json({
@@ -79,6 +77,20 @@ module.exports.createSession = function(req,res){
         message: "User login  successfully",
         data: user
     });
+}
+
+
+//implement sign-out function 
+module.exports.destroySession = function(req,res){
+     
+    req.logout(function(err){
+         if(err){
+             return next(err);
+         }
+
+         return res.redirect('/');
+    })
+    
 }
 
 
