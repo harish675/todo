@@ -12,5 +12,6 @@ router.post('/create-session',passport.authenticate(
 
 router.get('/login',userController.loginPage);
 router.get('/sign-up',userController.signUpPage);
+router.get('/profile',passport.checkAuthentication,userController.profile);
 
 module.exports = router;

@@ -53,19 +53,18 @@ passport.deserializeUser(function(id,done){
 
 
 //check  the user is authenticated 
-
 passport.checkAuthentication = function(req,res,next){
     
      //if the user is signed in , then  pass on the req to next function which controller next
 
-     if(req.isAuthenticate()){
-         return next;
+     if(req.isAuthenticated()){
+         return next();
      }
 
      //user not sign 
      //return to user sign up page
 
-     return res.redirect('/');
+     return res.redirect('/user/login');
 
 }
 

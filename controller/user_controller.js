@@ -2,26 +2,35 @@
 const User = require('../model/user');
 
 
+module.exports.profile = function(req,res){
+     
+    return res.send('<h1>Users dashBroads</h1>');
+
+}
+
+
 //showing login page  
 module.exports.loginPage = function(req,res){
-    
+
+    if (req.isAuthenticated()) {  // fix: use req.isAuthenticated() instead of req.Authenticated()
+        return res.redirect('/user/profile');
+    }
      return res.render('login',{
          title : 'Login'
      })
     
-
 }
-
 //showing sign-up page for user
-
 module.exports.signUpPage = function(req,res){
-    
+     
+    if (req.isAuthenticated()) {  // fix: use req.isAuthenticated() instead of req.Authenticated()
+        return res.redirect('/user/profile');
+    }
      return res.render('sign-up',{
          title:'New User'
      })
 
 }
-
 
 //user to creating controller
 module.exports.createUser = async function (req,res){
