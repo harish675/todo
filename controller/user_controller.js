@@ -1,18 +1,41 @@
 
+const { render } = require('ejs');
 const User = require('../model/user');
+const Tasks = require('../model/tasks');
 
 
 module.exports.profile = function(req,res){
-     
-    return res.send('<h1>Users dashBroads</h1>');
-
+    if (req.isAuthenticated()) {  
+       
+        //finding the tasks list and showing in the user dashboard
+        try{
+            Tasks.find({})
+             .then((tasks)=>{
+                 return res.render('dashboard',{
+                     title:'Dashboard',
+                     taskList: tasks
+                 });
+               
+             })
+             .catch((err)=>{
+                 console.log('error in fetching contacts from db :' ,err);
+                 return res.status(500).send('Internal Server Error');
+             })
+         }catch(err){
+             console.log('error in showing the tasklist on dashboards',err);
+             return res.redirect('back');
+         }
+    }
+   else{
+     return res.redirect('back');
+   }
 }
 
 
 //showing login page  
 module.exports.loginPage = function(req,res){
 
-    if (req.isAuthenticated()) {  // fix: use req.isAuthenticated() instead of req.Authenticated()
+    if (req.isAuthenticated()) {  
         return res.redirect('/user/profile');
     }
      return res.render('login',{
@@ -48,10 +71,11 @@ module.exports.createUser = async function (req,res){
         if (!user) {
             user = await User.create(req.body);
             console.log('User Created:', user);
-            return res.status(200).json({
-                message: "User created successfully",
-                data: user
-            });
+            return res.redirect('/user/login')
+            // return res.status(200).json({
+            //     message: "User created successfully",
+            //     data: user
+            // });
         } else {
             console.log("User with email id already exists");
             return res.status(400).json({
@@ -73,10 +97,11 @@ module.exports.createSession = function(req,res){
     console.log("user signed successfully");
     console.log(req.user);
     const user = req.user;
-    return res.status(200).json({
-        message: "User login  successfully",
-        data: user
-    });
+    // return res.status(200).json({
+    //     message: "User login  successfully",
+    //     data: user
+    // });
+    return res.redirect('/user/profile');
 }
 
 

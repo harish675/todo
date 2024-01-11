@@ -1,0 +1,30 @@
+<div id="dashboard">
+    <h1>users dashboards</h1>
+
+    <div id="tasks-list">
+
+        <h1>Tasks Lists</h1>
+
+        <ul id="todo">
+
+            <%for(let i of taskList){%>
+               <li>
+                 <p><%= i.tasks %></p>
+              </li> 
+            <%}%>
+        </ul>
+    </div>
+
+    <div id="add-tasks">
+        <form action="/task/create-task" method="POST">
+           
+              <label for="task-title">Task:</label>
+              <input type="text" id="task-title" name="task" required>
+              <br>
+              <label for="task-description"> Description:</label>
+              <input type="textarea" id="task-description" name="description" required>
+              <br>
+              <button type="submit">Add Tasks</button> 
+        </form>
+    </div>
+</div>
